@@ -1,8 +1,9 @@
 //Packages for Application
 const inquirer = require("inquirer");
 const fs = require("fs");
-const ShapeGenerator = require("./lib/shape.js");
-const TextGenerator = require("./lib/text.js");
+const { Triangle, Circle, Square } = require("./lib/shape.js");
+const { XSmall, Small, Medium, Large, XLarge } = require("./lib/text.js");
+const svgConfig = require("./utils/svg.config.js");
 
 // Question Prompt for Logo Specs
 const questions = [
@@ -30,8 +31,8 @@ const questions = [
   {
     type: "list",
     message: "Font Size - Please select a font size:",
-    choices: ["X Small", "Small", "Medium", "Large", "X Large"],
-    name: "fontSize",
+    choices: [XSmall, Small, Medium, Large, XLarge],
+    name: "fontSizeClass",
     validate: (input) => {
       return input ? true : "Invalid entry, please select a font.";
     },
@@ -49,8 +50,8 @@ const questions = [
   {
     type: "list",
     message: "Shape - Please select a shape:",
-    choices: ["Triangle", "Circle", "Square"],
-    name: "shape",
+    choices: [Triangle, Circle, Square],
+    name: "shapeClass",
     validate: (input) => {
       return input ? true : "Invalid entry, please select a font.";
     },
@@ -76,27 +77,28 @@ function writeToFile(fileName, svgContent) {
 
 // Function to initialize app
 function init() {
-  inquirer.prompt(questions).then((data) => {
-    // SVG Size
-    const width = 300;
-    const height = 200;
+  inquirer.prompt(questions).then(async (data) => {
+    console.log("Font Size Class:", data.fontSizeClass);
+    console.log("Text:", data.text);
+    console.log("Font:", data.font);
+    console.log("Text Color:", data.textColor);
 
-    // Create a string to store the SVG content
-    let svgContent = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">`;
+    const svgContent = svgConfig.getSvgOpeningTag();
 
-    // Instantiating new Classes
-    const shapeGenerator = new ShapeGenerator();
-    const textGenerator = new TextGenerator();
+    // Create an instance of the selected font size class
+    const FontSizeClass = data.fontSizeClass;
+    const fontSize = new FontSizeClass(data.text, data.font, data.textColor);
 
-    // Shape & Text generator
-    const svgShapeContent = shapeGenerator.generateSvgShape(data);
-    const svgTextContent = textGenerator.generateSvgText(data);
+    // Create an instance of the selected shape class
+    const ShapeClass = data.shape;
+    const shape = new ShapeClass(data.shapeColor);
 
-    // Combining SVG String
+    const svgShapeContent = shape.render();
+    const svgTextContent = fontSize.render();
+
     const combinedSvgContent =
       svgContent + svgShapeContent + svgTextContent + "</svg>";
 
-    // File Name
     const fileName = "logo.svg";
 
     writeToFile(fileName, combinedSvgContent);

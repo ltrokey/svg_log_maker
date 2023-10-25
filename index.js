@@ -1,8 +1,8 @@
 //Packages for Application
 const inquirer = require("inquirer");
 const fs = require("fs");
-const ShapeGenerator = require("./lib/shape");
-const TextGenerator = require("./lib/text");
+const ShapeGenerator = require("./lib/shape.js");
+const TextGenerator = require("./lib/text.js");
 
 const questions = [
   {

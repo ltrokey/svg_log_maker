@@ -4,6 +4,7 @@ const fs = require("fs");
 const ShapeGenerator = require("./lib/shape.js");
 const TextGenerator = require("./lib/text.js");
 
+// Question Prompt for Logo Specs
 const questions = [
   {
     type: "input",
@@ -76,15 +77,28 @@ function writeToFile(fileName, svgContent) {
 // Function to initialize app
 function init() {
   inquirer.prompt(questions).then((data) => {
+    // SVG Size
+    const width = 300;
+    const height = 200;
+
+    // Create a string to store the SVG content
+    let svgContent = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Instantiating new Classes
     const shapeGenerator = new ShapeGenerator();
     const textGenerator = new TextGenerator();
 
+    // Shape & Text generator
     const svgShapeContent = shapeGenerator.generateSvgShape(data);
     const svgTextContent = textGenerator.generateSvgText(data);
 
-    const combinedSvgContent = svgShapeContent + svgTextContent;
+    // Combining SVG String
+    const combinedSvgContent =
+      svgContent + svgShapeContent + svgTextContent + "</svg>";
 
+    // File Name
     const fileName = "logo.svg";
+
     writeToFile(fileName, combinedSvgContent);
   });
 }

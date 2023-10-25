@@ -1,7 +1,8 @@
 //Packages for Application
 const inquirer = require("inquirer");
 const fs = require("fs");
-const LogoGenerator = require("./lib/shapes");
+const ShapeGenerator = require("./lib/shape");
+const TextGenerator = require("./lib/text");
 
 const questions = [
   {
@@ -75,10 +76,16 @@ function writeToFile(fileName, svgContent) {
 // Function to initialize app
 function init() {
   inquirer.prompt(questions).then((data) => {
-    const logoGenerator = new LogoGenerator()
-    const svgContent = logoGenerator.generateSvgLogo(data);
+    const shapeGenerator = new ShapeGenerator();
+    const textGenerator = new TextGenerator();
+
+    const svgShapeContent = shapeGenerator.generateSvgShape(data);
+    const svgTextContent = textGenerator.generateSvgText(data);
+
+    const combinedSvgContent = svgShapeContent + svgTextContent;
+
     const fileName = "logo.svg";
-    writeToFile(fileName, svgContent);
+    writeToFile(fileName, combinedSvgContent);
   });
 }
 

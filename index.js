@@ -3,6 +3,7 @@ const fs = require("fs");
 const { Triangle, Circle, Square } = require("./lib/shape");
 const { XSmall, Small, Medium, Large, XLarge } = require("./lib/text");
 const svgConfig = require("./utils/svg.config");
+const path = require("path");
 
 const questions = [
   {
@@ -67,11 +68,16 @@ const questions = [
 ];
 
 function writeToFile(fileName, svgContent) {
-  fs.writeFile(fileName, svgContent, (err) => {
+  const distFolder = "dist";
+  const filePath = path.join(__dirname, distFolder, fileName);
+
+  fs.writeFile(filePath, svgContent, (err) => {
     if (err) {
       console.error(err);
     } else {
-      console.log("SVG file generated successfully.");
+      console.log(
+        `SVG file generated successfully in the "${distFolder}" folder.`
+      );
     }
   });
 }
@@ -80,7 +86,8 @@ function init() {
   inquirer
     .prompt(questions)
     .then((data) => {
-      const { text, font, fontSizeClass, textColor, shapeClass, shapeColor } = data;
+      const { text, font, fontSizeClass, textColor, shapeClass, shapeColor } =
+        data;
 
       let svgShapeContent;
       switch (shapeClass) {

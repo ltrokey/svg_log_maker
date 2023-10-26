@@ -1,61 +1,108 @@
-const ShapeGenerator = require("../lib/shape.js");
+const { Shape, Triangle, Circle, Square } = require("../lib/shape.js");
 
-// Testing Instantiation
-describe("ShapeGenerator", () => {
-  // Testing Instantiation
-  describe("Instantiate", () => {
-    it("should be an instance of ShapeGenerator Class", () => {
-      const shapeGenerator = new ShapeGenerator();
+// Shape Class
+describe("Shape", () => {
 
-      expect(shapeGenerator).toBeInstanceOf(ShapeGenerator);
+  describe("Instantiation", () => {
+    it("should be an instance of Shape Class", () => {
+      const shape = new Shape();
+
+      expect(shape).toBeInstanceOf(Shape);
+    });
+    it("should have a default color property", () => {
+      const shape = new Shape();
+
+      expect(shape.color).toBe("");
     });
   });
 
-  // Testing Triangle Shape
-  describe("Initialize Triangle & Color", () => {
-    it("should set shape & color properly", () => {
-      const shape = "Triangle";
-      const shapeColor = "blue";
-      const expectedSvgContent = `<polygon points="150,18 244,182 56,182" fill="${shapeColor}" />`;
-      const shapeGenerator = new ShapeGenerator();
-      const svgShapeContent = shapeGenerator.generateSvgShape({
-        shape,
-        shapeColor,
-      });
+  describe("setColor", () => {
+    it("should set the color property", () => {
+      const shape = new Shape();
+      shape.setColor("blue");
 
-      expect(svgShapeContent).toBe(expectedSvgContent);
+      expect(shape.color).toBe("blue");
     });
   });
 
-  // Testing Circle Shape
-  describe("Initialize Circle & Color", () => {
-    it("should set shape & color properly", () => {
-      const shape = "Circle";
-      const shapeColor = "pink";
-      const expectedSvgContent = `<circle cx="150" cy="100" r="80" fill="${shapeColor}" />`;
-      const shapeGenerator = new ShapeGenerator();
-      const svgShapeContent = shapeGenerator.generateSvgShape({
-        shape,
-        shapeColor,
-      });
+  describe("render", () => {
+    it("should throw an error", () => {
+      const shape = new Shape();
 
-      expect(svgShapeContent).toBe(expectedSvgContent);
+      expect(() => shape.render()).toThrow(
+        "Subclasses must implement the render method"
+      );
+    });
+  });
+});
+
+// Triangle Class
+describe("Triangle", () => {
+
+  describe("Instantiation", () => {
+    it("should be an instance of Triangle Class", () => {
+      const triangle = new Triangle();
+
+      expect(triangle).toBeInstanceOf(Triangle);
     });
   });
 
-  // Testing Square Shape
-  describe("Initialize Square & Color", () => {
-    it("should set shape & color properly", () => {
-      const shape = "Square";
-      const shapeColor = "#556B2F";
-      const expectedSvgContent = `<rect x="75" y="25" width="150" height="150" fill="${shapeColor}" />`;
-      const shapeGenerator = new ShapeGenerator();
-      const svgShapeContent = shapeGenerator.generateSvgShape({
-        shape,
-        shapeColor,
-      });
+  describe("Render", () => {
+    it("should render a triangle SVG", () => {
+      const triangle = new Triangle();
+      triangle.setColor("green");
+      let svgShapeString = triangle.render();
 
-      expect(svgShapeContent).toBe(expectedSvgContent);
+      expect(svgShapeString).toContain(
+        '<polygon points="150,18 244,182 56,182" fill="green" />'
+      );
+    });
+  });
+});
+
+// Circle Class
+describe("Circle", () => {
+
+  describe("Instantiation", () => {
+    it("should be an instance of Circle Class", () => {
+      const circle = new Circle();
+      expect(circle).toBeInstanceOf(Circle);
+    });
+  });
+
+  describe("Render", () => {
+    it("should render a circle SVG", () => {
+      const circle = new Circle();
+      circle.setColor("pink");
+      let svgString = circle.render();
+
+      expect(svgString).toContain(
+        '<circle cx="150" cy="100" r="80" fill="pink" />'
+      );
+    });
+  });
+});
+
+// Square Class
+describe("Square", () => {
+
+  describe("Instantiation", () => {
+    it("should be an instance of Square Class", () => {
+      const square = new Square();
+
+      expect(square).toBeInstanceOf(Square);
+    });
+  });
+
+  describe("Render", () => {
+    it("should render a square SVG", () => {
+      const square = new Square();
+      square.setColor("orange");
+      let svgString = square.render();
+
+      expect(svgString).toContain(
+        '<rect x="75" y="25" width="150" height="150" fill="orange" />'
+      );
     });
   });
 });

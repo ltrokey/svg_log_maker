@@ -1,0 +1,5 @@
+
+        <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="100" r="80" fill="#556B2F" />
+        <text x="105" y="115" font-family="Fantasy" font-size="50" fill="white">#L2</text>
+        </svg>

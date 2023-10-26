@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Link to video presentation](https://drive.google.com/file/d/1r_SrcX1Z4i-SDUD2GpHp1nbf9HtKXiS5/view)
+[Link to video presentation](https://drive.google.com/file/d/1gea1t19V9IXv2tidsLRxwhtxyBhxUOOX/view)
 
 ## Description
 The SVG Logo Maker is an a command-line application, providing users with the tools to create customized SVG logo designs. In addition to the essential features of text content, shape selection, and colors, this application offers an array of extra features. Users can explore a range of font styles, including Serif, Sans-serif, Monospace, Cursive, and Papyrus, to give their logos a unique typographic touch. Furthermore, they can fine-tune their designs with different font sizes, from XSmall to XLarge, allowing for precise control over text presentation. With these added capabilities, the SVG Logo Maker delivers a comprehensive solution for crafting logos that suit various styles and preferences, all within an intuitive Node.js environment powered by Inquirer.
@@ -16,7 +16,7 @@ The SVG Logo Maker is an a command-line application, providing users with the to
 - [Questions](#questions)
 
 ## Installation
-1. Clone the repository, open your terminal and run the following command `git clone <repository-url>`.
+1. Clone the repository, open your terminal and run the following command `git clone` (repository-url).
 3. Navigate to the Project Directory.
 4. Install dependencies. Ensure that you have Node.js installed on your machine. If not, download and install it from [Node.js](https://www.nodejs.org).
 6. Then, install the project's dependencies using `npm i`.
@@ -45,11 +45,14 @@ The application will present you with a series of prompts to customize your SVG 
 
 ![Application example](./assets/images/screenshot_4.png)
 
-Examples:
+**Examples**:
+<div style="text-align:center">
 
 ![logo example 1](./assets/images/screenshot_1.png)
 
 ![logo example 2](./assets/images/screenshot_2.png)
+
+</div>
 
 ## Badges
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
@@ -77,9 +80,12 @@ The application is built using Node.js, making it accessible and versatile for d
 ## Tests
 The test suite, built with Jest, covers critical components of the codebase, ensuring that each module and class performs as expected. Whether validating the functionality of the Shape and Text classes or verifying the correctness of the SVG configuration, Jest provides a dependable testing framework. These tests not only validate the application's core functionality but also contribute to its stability and error handling, enhancing the overall user experience.
 
-Test Coverage:
+**Test Coverage**:
+<div style="text-align:center">
 
 ![Test Coverage](./assets/images/screenshot_5.png)
+
+</div>
 
 ## Questions
 [GitHub Profile](https://github.com/ltrokey)

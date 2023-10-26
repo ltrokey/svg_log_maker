@@ -1,1 +1,6 @@
-<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect x="75" y="25" width="150" height="150" fill="bluue" /><text x="105" y="120" font-family="Sans-serif" font-size="50" fill="yellow">ING</text></svg>
+
+        <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="100" r="80" fill="navy" />
+        <text x="70" y="130" font-family="Cursive" font-size="75" fill="pink">LNT</text>
+        </svg>
+      

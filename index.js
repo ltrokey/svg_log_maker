@@ -1,11 +1,9 @@
-//Packages for Application
 const inquirer = require("inquirer");
 const fs = require("fs");
-const { Triangle, Circle, Square } = require("./lib/shape.js");
-const { XSmall, Small, Medium, Large, XLarge } = require("./lib/text.js");
-const svgConfig = require("./utils/svg.config.js");
+const { Triangle, Circle, Square } = require("./lib/shape");
+const { XSmall, Small, Medium, Large, XLarge } = require("./lib/text");
+const svgConfig = require("./utils/svg.config");
 
-// Question Prompt for Logo Specs
 const questions = [
   {
     type: "input",
@@ -31,7 +29,7 @@ const questions = [
   {
     type: "list",
     message: "Font Size - Please select a font size:",
-    choices: [XSmall, Small, Medium, Large, XLarge],
+    choices: ["XSmall", "Small", "Medium", "Large", "XLarge"],
     name: "fontSizeClass",
     validate: (input) => {
       return input ? true : "Invalid entry, please select a font.";
@@ -43,17 +41,17 @@ const questions = [
     name: "textColor",
     validate: (input) => {
       return input.trim() === ""
-        ? "Invalid entry, please enter a color or a hexadecial number."
+        ? "Invalid entry, please enter a color or a hexadecimal number."
         : true;
     },
   },
   {
     type: "list",
     message: "Shape - Please select a shape:",
-    choices: [Triangle, Circle, Square],
+    choices: ["Triangle", "Circle", "Square"],
     name: "shapeClass",
     validate: (input) => {
-      return input ? true : "Invalid entry, please select a font.";
+      return input ? true : "Invalid entry, please select a shape.";
     },
   },
   {
@@ -62,48 +60,82 @@ const questions = [
     name: "shapeColor",
     validate: (input) => {
       return input.trim() === ""
-        ? "Invalid entry, please enter a color or a hexadecial number."
+        ? "Invalid entry, please enter a color or a hexadecimal number."
         : true;
     },
   },
 ];
 
-// Function to write README file
 function writeToFile(fileName, svgContent) {
   fs.writeFile(fileName, svgContent, (err) => {
-    err ? console.log(err) : console.log("SVG file generated successfully.");
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("SVG file generated successfully.");
+    }
   });
 }
 
-// Function to initialize app
 function init() {
-  inquirer.prompt(questions).then(async (data) => {
-    console.log("Font Size Class:", data.fontSizeClass);
-    console.log("Text:", data.text);
-    console.log("Font:", data.font);
-    console.log("Text Color:", data.textColor);
+  inquirer
+    .prompt(questions)
+    .then((data) => {
+      const { text, font, fontSizeClass, textColor, shapeClass, shapeColor } = data;
 
-    const svgContent = svgConfig.getSvgOpeningTag();
+      let svgShapeContent;
+      switch (shapeClass) {
+        case "Triangle":
+          svgShapeContent = new Triangle();
+          break;
+        case "Circle":
+          svgShapeContent = new Circle();
+          break;
+        case "Square":
+          svgShapeContent = new Square();
+          break;
+      }
 
-    // Create an instance of the selected font size class
-    const FontSizeClass = data.fontSizeClass;
-    const fontSize = new FontSizeClass(data.text, data.font, data.textColor);
+      svgShapeContent.setColor(shapeColor);
 
-    // Create an instance of the selected shape class
-    const ShapeClass = data.shape;
-    const shape = new ShapeClass(data.shapeColor);
+      let svgTextContent;
+      switch (fontSizeClass) {
+        case "XSmall":
+          svgTextContent = new XSmall();
+          break;
+        case "Small":
+          svgTextContent = new Small();
+          break;
+        case "Medium":
+          svgTextContent = new Medium();
+          break;
+        case "Large":
+          svgTextContent = new Large();
+          break;
+        case "XLarge":
+          svgTextContent = new XLarge();
+          break;
+      }
 
-    const svgShapeContent = shape.render();
-    const svgTextContent = fontSize.render();
+      svgTextContent.setText(text);
+      svgTextContent.setFont(font);
+      svgTextContent.setColor(textColor);
 
-    const combinedSvgContent =
-      svgContent + svgShapeContent + svgTextContent + "</svg>";
+      const svgOpeningTag = svgConfig.getSvgOpeningTag();
+      const svgClosingTag = svgConfig.getSvgClosingTag();
 
-    const fileName = "logo.svg";
+      const combinedSvgContent = `
+        ${svgOpeningTag}
+        ${svgShapeContent.render()}
+        ${svgTextContent.render()}
+        ${svgClosingTag}
+      `;
 
-    writeToFile(fileName, combinedSvgContent);
-  });
+      const fileName = "logo.svg";
+      writeToFile(fileName, combinedSvgContent);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
-// Function call to initialize app
 init();

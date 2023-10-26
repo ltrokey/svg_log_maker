@@ -1,0 +1,5 @@
+
+        <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="75" y="25" width="150" height="150" fill="#235784" />
+        <text x="125" y="105" font-family="monospace" font-size="25" fill="#f7aa00">ZTT</text>
+        </svg>

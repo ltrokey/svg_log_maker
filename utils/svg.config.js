@@ -1,4 +1,3 @@
-// svgConfig.js
 const svgWidth = 300;
 const svgHeight = 200;
 

@@ -93,12 +93,12 @@ describe("Small", () => {
     it("should render a small text SVG", () => {
       const small = new Small();
       small.setText("OGT");
-      small.setFont("Fantasy");
+      small.setFont("Papyrus");
       small.setColor("purple");
       let svgTextString = small.render();
 
       expect(svgTextString).toContain(
-        '<text x="105" y="115" font-family="Fantasy" font-size="50" fill="purple">OGT</text>'
+        '<text x="105" y="115" font-family="Papyrus" font-size="50" fill="purple">OGT</text>'
       );
     });
   });

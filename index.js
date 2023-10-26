@@ -21,7 +21,7 @@ const questions = [
   {
     type: "list",
     message: "Font - Please select a font:",
-    choices: ["Serif", "Sans-serif", "Monospace", "Cursive", "Fantasy"],
+    choices: ["Serif", "Sans-serif", "Monospace", "Cursive", "Papyrus"],
     name: "font",
     validate: (input) => {
       return input ? true : "Invalid entry, please select a font.";
@@ -84,8 +84,8 @@ function writeToFile(fileName, svgContent) {
 
 function init() {
   inquirer
-    .prompt(questions)
-    .then((data) => {
+    .prompt(questions).then((data) => {
+
       const { text, font, fontSizeClass, textColor, shapeClass, shapeColor } =
         data;
 
